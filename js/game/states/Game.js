@@ -33,6 +33,7 @@ btbs.Game.prototype = {
         {
 
             var s = this.squares.create(this.game.world.randomX, this.game.world.randomY, 'square');
+            s.anchor.setTo(0.5);
             s.name = 'square' + s;
             s.tint = 0x000000;
             s.body.collideWorldBounds = true;
@@ -47,9 +48,20 @@ btbs.Game.prototype = {
     },
     update: function () {
 
-        this.player.rotation = this.game.physics.arcade.moveToPointer(this.player, 120, this.game.input.activePointer, 350);
+    this.player.rotation = this.game.physics.arcade.moveToPointer(this.player, 120, this.game.input.activePointer, 350);
 
-        this.game.physics.arcade.collide(this.player, this.squares, this.sHit, null, this);
+        if( (this.player.x < this.player.width) || (this.player.x > this.game.world.width - this.player.width) || (this.player.y < this.player.height) || (this.player.y > this.game.world.height - this.player.height) ){
+            this.player.tint = 0xff0000;
+            this.game.hitEnabled = false;
+        }else{
+            this.player.tint = 0x000000;
+            this.game.hitEnabled = true;
+        }
+
+
+
+            this.game.physics.arcade.collide(this.player, this.squares, this.sHit, null, this);
+
 
     },
     shutdown: function () {
@@ -62,7 +74,16 @@ btbs.Game.prototype = {
         this.scoreboardLauncher = false;
 
     },
-    sHit: function () {
-        console.log('shit !');
+    sHit: function (player,square) {
+
+        if( this.game.hitEnabled ){
+
+            console.log('HHHIIITTT !');
+
+        }else{
+
+        console.log('SSSSSSSSSSSSSSSSSSSShit !');
+
+        }
     }
 };
