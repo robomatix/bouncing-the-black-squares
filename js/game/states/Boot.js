@@ -9,7 +9,7 @@ btbs.Boot.prototype = {
         this.load.image('preloadbar', 'assets/images/preload-bar.png');
     },
     create: function() {
-        this.game.stage.backgroundColor = '#fff';
+        this.game.stage.backgroundColor = '#ccc';
 
         //  Unless you specifically know your game needs to support multi-touch I would recommend setting this to 1
         this.input.maxPointers = 1;
