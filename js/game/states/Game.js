@@ -32,6 +32,7 @@ btbs.Game.prototype = {
     },
     update: function () {
 
+        this.player.rotation = this.game.physics.arcade.moveToPointer(this.player, 120, this.game.input.activePointer, 350);
 
         //this.game.physics.arcade.overlap(this.player, this.coins, this.coinHit, null, this);
         //this.game.physics.arcade.overlap(this.player, this.enemies, this.enemyHit, null, this);
