@@ -37,8 +37,20 @@ btbs.Game.prototype = {
 
         for (var i = 0; i < 60; i++)
         {
+            var squareX, squareY;
 
-            var s = this.squares.create(this.game.world.randomX, this.game.world.randomY, 'square');
+            squareX = this.game.world.randomX;
+
+            if(i < 30){
+
+                squareY = this.player.height;
+
+            }else{
+
+                squareY = this.game.world.height-this.player.height;
+            }
+
+            var s = this.squares.create(squareX, squareY, 'square');
             s.anchor.setTo(0.5);
             s.name = 'square' + s;
             s.tint = 0x000000;
