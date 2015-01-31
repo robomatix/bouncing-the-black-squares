@@ -49,10 +49,7 @@ btbs.Game.prototype = {
 
         this.player.rotation = this.game.physics.arcade.moveToPointer(this.player, 120, this.game.input.activePointer, 350);
 
-        this.game.physics.arcade.collide(this.player, this.squares);
-
-        //this.game.physics.arcade.overlap(this.player, this.coins, this.coinHit, null, this);
-
+        this.game.physics.arcade.collide(this.player, this.squares, this.sHit, null, this);
 
     },
     shutdown: function () {
@@ -64,5 +61,8 @@ btbs.Game.prototype = {
 
         this.scoreboardLauncher = false;
 
+    },
+    sHit: function () {
+        console.log('shit !');
     }
 };
