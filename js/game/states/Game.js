@@ -10,6 +10,12 @@ btbs.Game.prototype = {
         this.game.scoreboardLauncher = false;
 
 
+        this.scoreText = this.game.add.bitmapText(10, 10, 'squareFont', '0', 88);
+        this.scoreText.x = this.game.width / 2 - this.scoreText.textWidth / 2;
+        this.scoreText.y = this.game.height / 2 - this.scoreText.textHeight / 2;
+        this.scoreText.tint = 0xff6600;
+
+
 
 
         this.player = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'square');
@@ -78,12 +84,21 @@ btbs.Game.prototype = {
 
         if( this.game.hitEnabled ){
 
-            console.log('HHHIIITTT !');
+            this.score++;
 
         }else{
 
-        console.log('SSSSSSSSSSSSSSSSSSSShit !');
+            if(this.score>0)
+            {
+                this.score--;
+            }
 
         }
+
+        this.scoreText.text =  this.score;
+
+        this.scoreText.x = this.game.width / 2 - this.scoreText.textWidth / 2;
+        this.scoreText.y = this.game.height / 2 - this.scoreText.textHeight / 2;
+
     }
 };
