@@ -26,7 +26,7 @@ btbs.Preload.prototype = {
     update: function() {
 
         if(this.ready === true) {
-            this.state.start('Game');
+            this.state.start('MainMenu');
         }
 
     },

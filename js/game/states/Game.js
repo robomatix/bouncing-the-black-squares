@@ -11,12 +11,9 @@ btbs.Game.prototype = {
 
 
         this.scoreText = this.game.add.bitmapText(10, 10, 'squareFont', '0', 88);
-        this.scoreText.x = this.game.width / 2 - this.scoreText.textWidth / 2;
-        this.scoreText.y = this.game.height / 2 - this.scoreText.textHeight / 2;
+        this.scoreText.x = this.game.world.centerX - this.scoreText.textWidth / 2;
+        this.scoreText.y = this.game.world.centerY - this.scoreText.textHeight / 2;
         this.scoreText.tint = 0xff6600;
-
-
-
 
         this.player = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'square');
         this.player.anchor.setTo(0.5);
@@ -25,8 +22,6 @@ btbs.Game.prototype = {
         this.player.smoothed = false;
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-
-
 
         this.game.physics.arcade.enableBody(this.player);
         this.player.body.collideWorldBounds = true;
@@ -89,10 +84,8 @@ btbs.Game.prototype = {
 
         this.score = 0;
 
-        this.scoreboardLauncher = false;
-
     },
-    sHit: function (player,square) {
+    sHit: function () {
 
         if( this.game.hitEnabled ){
 
@@ -109,8 +102,8 @@ btbs.Game.prototype = {
 
         this.scoreText.text =  this.score;
 
-        this.scoreText.x = this.game.width / 2 - this.scoreText.textWidth / 2;
-        this.scoreText.y = this.game.height / 2 - this.scoreText.textHeight / 2;
+        this.scoreText.x = this.game.world.centerX - this.scoreText.textWidth / 2;
+        this.scoreText.y = this.game.world.centerY - this.scoreText.textHeight / 2;
 
     }
 };

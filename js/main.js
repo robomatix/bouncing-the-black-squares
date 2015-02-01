@@ -6,7 +6,7 @@ window.onload = function () {
 
     // Game States
     game.state.add('Boot', btbs.Boot);
-    //game.state.add('MainMenu', btbs.MainMenu);
+    game.state.add('MainMenu', btbs.MainMenu);
     game.state.add('Game', btbs.Game);
     game.state.add('Preload', btbs.Preload);
 
