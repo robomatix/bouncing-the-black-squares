@@ -1,19 +1,30 @@
 btbs.Game = function () {
 
+    // Var
     this.score = 0;
+    this.countdownDisplay = 36;
 
 };
 
 btbs.Game.prototype = {
     create: function () {
 
+        // Var
         this.game.scoreboardLauncher = false;
+
+        // The countdown
+        this.game.time.events.repeat(Phaser.Timer.SECOND * 1, 60, this.countDown, this);
 
 
         this.scoreText = this.game.add.bitmapText(10, 10, 'squareFont', '0', 88);
         this.scoreText.x = this.game.world.centerX - this.scoreText.textWidth / 2;
         this.scoreText.y = this.game.world.centerY - this.scoreText.textHeight / 2;
         this.scoreText.tint = 0xff6600;
+
+        this.countdownText = this.game.add.bitmapText(10, 10, 'squareFont', '36', 88);
+        this.countdownText.x = this.game.world.centerX - this.scoreText.textWidth / 2;
+        this.countdownText.y = this.scoreText.y - 100;
+        this.countdownText.setText(this.countdownDisplay);
 
         this.player = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'square');
         this.player.anchor.setTo(0.5);
@@ -30,19 +41,18 @@ btbs.Game.prototype = {
         this.squares = this.game.add.group();
         this.squares.enableBody = true;
 
-        for (var i = 0; i < 60; i++)
-        {
+        for (var i = 0; i < 60; i++) {
             var squareX, squareY;
 
             squareX = this.game.world.randomX;
 
-            if(i < 30){
+            if (i < 30) {
 
                 squareY = this.player.height;
 
-            }else{
+            } else {
 
-                squareY = this.game.world.height-this.player.height;
+                squareY = this.game.world.height - this.player.height;
             }
 
             var s = this.squares.create(squareX, squareY, 'square');
@@ -56,24 +66,21 @@ btbs.Game.prototype = {
         }
 
 
-
-
     },
     update: function () {
 
-    this.player.rotation = this.game.physics.arcade.moveToPointer(this.player, 120, this.game.input.activePointer, 350);
+        this.player.rotation = this.game.physics.arcade.moveToPointer(this.player, 120, this.game.input.activePointer, 350);
 
-        if( (this.player.x < this.player.width) || (this.player.x > this.game.world.width - this.player.width) || (this.player.y < this.player.height) || (this.player.y > this.game.world.height - this.player.height) ){
+        if ((this.player.x < this.player.width) || (this.player.x > this.game.world.width - this.player.width) || (this.player.y < this.player.height) || (this.player.y > this.game.world.height - this.player.height)) {
             this.player.tint = 0xff0000;
             this.game.hitEnabled = false;
-        }else{
+        } else {
             this.player.tint = 0x000000;
             this.game.hitEnabled = true;
         }
 
 
-
-            this.game.physics.arcade.collide(this.player, this.squares, this.sHit, null, this);
+        this.game.physics.arcade.collide(this.player, this.squares, this.sHit, null, this);
 
 
     },
@@ -85,25 +92,34 @@ btbs.Game.prototype = {
         this.score = 0;
 
     },
+    /******************************
+     *
+     * THE GAME'S FUNCTIONS
+     *******************************/
     sHit: function () {
 
-        if( this.game.hitEnabled ){
+        if (this.game.hitEnabled) {
 
             this.score++;
 
-        }else{
+        } else {
 
-            if(this.score>0)
-            {
+            if (this.score > 0) {
                 this.score--;
             }
 
         }
 
-        this.scoreText.text =  this.score;
+        this.scoreText.text = this.score;
 
         this.scoreText.x = this.game.world.centerX - this.scoreText.textWidth / 2;
-        this.scoreText.y = this.game.world.centerY - this.scoreText.textHeight / 2;
+
+    },
+    countDown: function () {
+        this.countdownDisplay -= 1;
+        this.countdownText.text = this.countdownDisplay;
+        this.countdownText.x = this.game.world.centerX - this.countdownText.textWidth / 2;
+
 
     }
 };
