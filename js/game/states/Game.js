@@ -2,7 +2,9 @@ btbs.Game = function () {
 
     // Var
     this.score = 0;
+    this.scoreString = "Score : ";
     this.countdownDisplay = 36;
+    this.countdownString = "CountDown  : ";
 
 };
 
@@ -16,15 +18,14 @@ btbs.Game.prototype = {
         this.game.time.events.repeat(Phaser.Timer.SECOND * 1, 60, this.countDown, this);
 
 
-        this.scoreText = this.game.add.bitmapText(10, 10, 'squareFont', '0', 88);
+        this.scoreText = this.game.add.bitmapText(10, 10, 'squareFont', this.scoreString + this.score, 88);
         this.scoreText.x = this.game.world.centerX - this.scoreText.textWidth / 2;
         this.scoreText.y = this.game.world.centerY - this.scoreText.textHeight / 2;
         this.scoreText.tint = 0xff6600;
 
-        this.countdownText = this.game.add.bitmapText(10, 10, 'squareFont', '36', 88);
-        this.countdownText.x = this.game.world.centerX - this.scoreText.textWidth / 2;
+        this.countdownText = this.game.add.bitmapText(10, 10, 'squareFont', this.countdownString + this.countdownDisplay, 88);
+        this.countdownText.x = this.game.world.centerX - this.countdownText.textWidth / 2;
         this.countdownText.y = this.scoreText.y - 100;
-        this.countdownText.setText(this.countdownDisplay);
 
         this.player = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'square');
         this.player.anchor.setTo(0.5);
@@ -110,14 +111,17 @@ btbs.Game.prototype = {
 
         }
 
-        this.scoreText.text = this.score;
+        this.scoreText.text = this.scoreString + this.score;
 
         this.scoreText.x = this.game.world.centerX - this.scoreText.textWidth / 2;
 
     },
     countDown: function () {
         this.countdownDisplay -= 1;
-        this.countdownText.text = this.countdownDisplay;
+        if (this.countdownDisplay < 0) {
+            this.state.start('GameOver');
+        }
+        this.countdownText.text = this.countdownString + this.countdownDisplay;
         this.countdownText.x = this.game.world.centerX - this.countdownText.textWidth / 2;
 
 
